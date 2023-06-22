@@ -28,8 +28,12 @@ import com.example.loja_gamer_compose.ui.theme.Teal200
 import java.math.BigDecimal
 
 @Composable
-fun ProdutoItem(produto: Produto) {
+fun ProdutoItem(
+    produto: Produto,
+    modifier: Modifier = Modifier
+) {
     Surface(
+        modifier,
         shape = RoundedCornerShape(15.dp),
         elevation = 4.dp
     ) {

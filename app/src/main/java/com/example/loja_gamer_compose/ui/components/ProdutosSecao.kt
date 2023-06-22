@@ -1,40 +1,43 @@
 package com.example.loja_gamer_compose.ui.components
 
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.loja_gamer_compose.R
 import com.example.loja_gamer_compose.model.Produto
 import java.math.BigDecimal
-import com.example.loja_gamer_compose.R
 
 @Composable
-fun SecaoProdutos(titulo: String, produtos: List<Produto>) {
-    Column {
+fun SecaoProdutos(
+    titulo: String,
+    produtos: List<Produto>,
+    modifier: Modifier = Modifier
+) {
+    Column(modifier) {
         Text(
             text = titulo,
             Modifier.padding(start = 16.dp, end = 16.dp),
             fontSize = 20.sp,
             fontWeight = FontWeight(400)
         )
-        Row(
+        LazyRow(
             Modifier
                 .padding(top = 8.dp)
-                .fillMaxWidth()
-                .horizontalScroll(rememberScrollState()),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp),
+            contentPadding = PaddingValues(horizontal = 16.dp)
         ) {
-            Spacer(Modifier)
-            produtos.forEach {
-                ProdutoItem(produto = it)
+            items(produtos) { p ->
+                ProdutoItem(produto = p)
             }
-            Spacer(Modifier)
         }
     }
 }
@@ -49,7 +52,8 @@ val sampleProdutosPromocoes = listOf(
     Produto(
         nome = "PS5",
         preco = BigDecimal("4000.00"),
-        imagem = R.drawable.ps5
+        imagem = R.drawable.ps5,
+        descricao = LoremIpsum(20).values.first()
     )
 )
 
@@ -57,7 +61,8 @@ val sampleProdutosGames = listOf(
     Produto(
         nome = "PS5",
         preco = BigDecimal("4000.00"),
-        imagem = R.drawable.ps5
+        imagem = R.drawable.ps5,
+        descricao = LoremIpsum(20).values.first()
     ),
     Produto(
         nome = "Xbox One",
@@ -67,7 +72,8 @@ val sampleProdutosGames = listOf(
     Produto(
         nome = "Nintendo Switch",
         preco = BigDecimal("800.90"),
-        imagem = R.drawable.nintendo
+        imagem = R.drawable.nintendo,
+        descricao = LoremIpsum(20).values.first()
     )
 )
 
@@ -83,3 +89,17 @@ val sampleProdutosAcessorios = listOf(
         imagem = R.drawable.controle
     )
 )
+
+val sections = mapOf(
+    "Promoções" to sampleProdutosPromocoes,
+    "Games" to sampleProdutosGames,
+    "Acessórios" to sampleProdutosAcessorios
+)
+
+fun todosProdutos(): List<Produto> {
+    val produtos = mutableListOf<Produto>()
+    produtos.addAll(sampleProdutosGames)
+    produtos.addAll(sampleProdutosAcessorios)
+
+    return produtos
+}
