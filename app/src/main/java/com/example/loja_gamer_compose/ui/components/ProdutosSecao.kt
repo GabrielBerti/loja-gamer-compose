@@ -30,7 +30,7 @@ fun SecaoProdutos(
         )
         LazyRow(
             Modifier
-                .padding(top = 8.dp)
+                .padding(vertical = 8.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.spacedBy(16.dp),
             contentPadding = PaddingValues(horizontal = 16.dp)
