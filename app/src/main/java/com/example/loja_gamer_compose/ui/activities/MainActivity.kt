@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.FloatingActionButton
@@ -15,15 +16,13 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.loja_gamer_compose.dao.ProdutoDao
 import com.example.loja_gamer_compose.ui.components.sections
 import com.example.loja_gamer_compose.ui.screens.HomeScreen
-import com.example.loja_gamer_compose.ui.screens.HomeScreenUiState
+import com.example.loja_gamer_compose.ui.states.HomeScreenUiState
 import com.example.loja_gamer_compose.ui.theme.LojagamercomposeTheme
+import com.example.loja_gamer_compose.ui.viewmodels.HomeScreenViewModel
 
 class MainActivity : ComponentActivity() {
-
-    private val dao = ProdutoDao()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +30,8 @@ class MainActivity : ComponentActivity() {
             App(onFabClick = {
                 startActivity(Intent(this, FormProdutoActivity::class.java))
             }) {
-                val produtos = dao.produtos()
-                HomeScreen(produtos = produtos)
+                val viewModel by viewModels<HomeScreenViewModel>()
+                HomeScreen(viewModel)
             }
         }
     }

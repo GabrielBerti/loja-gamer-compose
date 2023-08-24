@@ -1,17 +1,18 @@
 package com.example.loja_gamer_compose.dao
 
-import androidx.compose.runtime.mutableStateListOf
 import com.example.loja_gamer_compose.model.Produto
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
 
 class ProdutoDao {
 
     companion object {
-        private val produtos = mutableStateListOf<Produto>()
+        private val produtos = MutableStateFlow<List<Produto>>(emptyList())
     }
 
-    fun produtos() = produtos.toList()
+    fun produtos() = produtos.asStateFlow()
 
     fun salvar(produto: Produto) {
-        produtos.add(produto)
+        produtos.value = produtos.value + produto
     }
 }
