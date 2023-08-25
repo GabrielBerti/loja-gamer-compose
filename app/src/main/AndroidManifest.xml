@@ -35,6 +35,12 @@
             android:exported="true"
             android:windowSoftInputMode="adjustResize">
         </activity>
+
+        <activity
+            android:name=".ui.activities.ProductDetailActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize">
+        </activity>
     </application>
 
 </manifest>

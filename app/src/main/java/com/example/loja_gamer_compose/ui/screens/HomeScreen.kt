@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.loja_gamer_compose.model.Produto
 import com.example.loja_gamer_compose.ui.components.CampoDeTextoDeBusca
 import com.example.loja_gamer_compose.ui.components.CardProductItem
 import com.example.loja_gamer_compose.ui.components.SecaoProdutos
@@ -24,14 +25,15 @@ import com.example.loja_gamer_compose.ui.theme.LojagamercomposeTheme
 import com.example.loja_gamer_compose.ui.viewmodels.HomeScreenViewModel
 
 @Composable
-fun HomeScreen(viewModel: HomeScreenViewModel) {
+fun HomeScreen(viewModel: HomeScreenViewModel, onClickItemSection: (Produto) -> Unit = {}) {
     val state by viewModel.uiState.collectAsState()
-    HomeScreen(state = state)
+    HomeScreen(state = state, onClickItemSection = onClickItemSection)
 }
 
 @Composable
 fun HomeScreen(
-    state: HomeScreenUiState = HomeScreenUiState()
+    state: HomeScreenUiState = HomeScreenUiState(),
+    onClickItemSection: (Produto) -> Unit = {}
 ) {
     Column {
         val secoes = state.secoes
@@ -49,7 +51,7 @@ fun HomeScreen(
             if (state.isMostraSecoes()) {
                 for (section in secoes) {
                     item {
-                        SecaoProdutos(titulo = section.key, produtos = section.value)
+                        SecaoProdutos(titulo = section.key, produtos = section.value, onClickItem = onClickItemSection)
                     }
 
                 }

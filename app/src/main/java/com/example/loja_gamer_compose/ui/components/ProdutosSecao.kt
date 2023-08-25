@@ -19,7 +19,8 @@ import java.math.BigDecimal
 fun SecaoProdutos(
     titulo: String,
     produtos: List<Produto>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    onClickItem: (Produto) -> Unit = {}
 ) {
     Column(modifier) {
         Text(
@@ -36,7 +37,7 @@ fun SecaoProdutos(
             contentPadding = PaddingValues(horizontal = 16.dp)
         ) {
             items(produtos) { p ->
-                ProdutoItem(produto = p)
+                ProdutoItem(produto = p, onClickItem = onClickItem)
             }
         }
     }

@@ -31,7 +31,12 @@ class MainActivity : ComponentActivity() {
                 startActivity(Intent(this, FormProdutoActivity::class.java))
             }) {
                 val viewModel by viewModels<HomeScreenViewModel>()
-                HomeScreen(viewModel)
+                HomeScreen(viewModel) {
+                    val intent = Intent(this, ProductDetailActivity::class.java)
+
+                    intent.putExtra("produto", it)
+                    this.startActivity(intent)
+                }
             }
         }
     }
